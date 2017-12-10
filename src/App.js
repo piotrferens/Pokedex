@@ -3,7 +3,8 @@ import React, { Component } from "react";
 class App extends Component {
   state = {
     pokemons: [],
-    isLoading: false
+    isLoading: false,
+    inputText: ""
   };
 
   componentDidMount() {
@@ -21,20 +22,42 @@ class App extends Component {
         })
       );
   }
+  onSearch = event => {
+    const value = event.target.value; // wartosc inputa
+
+    this.setState({ inputText: value });
+  };
   render() {
+    const filteredPokemons = this.state.pokemons.filter(pokemon =>
+      pokemon.name.toLowerCase().includes(this.state.inputText.toLowerCase())
+    );
     return (
       <div>
-        {this.state.isLoading ? <p>Loading...</p> : null}
-        {this.state.pokemons.map(pokemon => (
-          <div key={pokemon.name}>
-            <p>{pokemon.name}</p>
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                pokemon.id
-              }.png`}
-            />
-          </div>
-        ))}
+        {this.state.isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <input
+            onChange={this.onSearch}
+            value={this.state.inputText}
+            style={{
+              textAlign: "center",
+              display: "block",
+              margin: "0 auto "
+            }}
+          />
+        )}
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {filteredPokemons.slice(0, 30).map(pokemon => (
+            <div key={pokemon.name}>
+              <img
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                  pokemon.id
+                }.png`}
+              />
+              <p>{pokemon.name}</p>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
