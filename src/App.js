@@ -12,7 +12,13 @@ class App extends Component {
     fetch("https://pokeapi.co/api/v2/pokemon/?limit=784")
       .then(response => response.json())
       .then(response =>
-        this.setState({ pokemons: response.results, isLoading: false })
+        this.setState({
+          pokemons: response.results.map((pokemon, index) => ({
+            ...pokemon,
+            id: index + 1
+          })),
+          isLoading: false
+        })
       );
   }
   render() {
@@ -20,7 +26,14 @@ class App extends Component {
       <div>
         {this.state.isLoading ? <p>Loading...</p> : null}
         {this.state.pokemons.map(pokemon => (
-          <p key={pokemon.name}>{pokemon.name}</p>
+          <div key={pokemon.name}>
+            <p>{pokemon.name}</p>
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                pokemon.id
+              }.png`}
+            />
+          </div>
         ))}
       </div>
     );
