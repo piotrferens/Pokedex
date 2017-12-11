@@ -17,7 +17,8 @@ class App extends Component {
         this.setState({
           pokemons: response.results.map((pokemon, index) => ({
             ...pokemon,
-            id: index + 1
+            id: index + 1,
+            likes: 0
           })),
           isLoading: false
         })
@@ -26,6 +27,17 @@ class App extends Component {
   onSearch = event => {
     const value = event.target.value; // wartosc inputa
     this.setState({ inputText: value });
+  };
+
+  incrementLikes = id => {
+    this.setState({
+      pokemons: this.state.pokemons.map(pokemon => {
+        if (pokemon.id === id) {
+          return { ...pokemon, likes: pokemon.likes + 1 };
+        }
+        return pokemon;
+      })
+    });
   };
   render() {
     const filteredPokemons = this.state.pokemons.filter(pokemon =>
@@ -60,10 +72,11 @@ class App extends Component {
                 marginBottom: 0
               }}
               key={pokemon.name}
+              onClick={() => this.incrementLikes(pokemon.id)}
             >
               <div
                 style={{
-                  background: "lightpink"
+                  background: "#885EAD"
                 }}
               >
                 <img
@@ -76,10 +89,10 @@ class App extends Component {
                 style={{
                   textAlign: "center",
                   marginTop: 0,
-                  background: "lightgrey"
+                  background: "lightblue "
                 }}
               >
-                {pokemon.name}
+                {pokemon.name} {pokemon.likes}
               </p>
             </div>
           ))}
