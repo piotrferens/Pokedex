@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./loader.css";
 
 class App extends Component {
   state = {
@@ -33,7 +34,7 @@ class App extends Component {
     return (
       <div>
         {this.state.isLoading ? (
-          <p>Loading...</p>
+          <Loader />
         ) : (
           <input
             onChange={this.onSearch}
@@ -86,6 +87,10 @@ class App extends Component {
       </div>
     );
   }
+}
+
+function Loader() {
+  return <div className="loader" />;
 }
 
 export default App;
