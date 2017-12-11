@@ -24,7 +24,6 @@ class App extends Component {
   }
   onSearch = event => {
     const value = event.target.value; // wartosc inputa
-
     this.setState({ inputText: value });
   };
   render() {
@@ -46,15 +45,41 @@ class App extends Component {
             }}
           />
         )}
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {filteredPokemons.slice(0, 30).map(pokemon => (
-            <div key={pokemon.name}>
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                  pokemon.id
-                }.png`}
-              />
-              <p>{pokemon.name}</p>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap"
+          }}
+        >
+          {filteredPokemons.slice(0, 50).map(pokemon => (
+            <div
+              style={{
+                margin: 5,
+                padding: 10,
+                marginBottom: 0
+              }}
+              key={pokemon.name}
+            >
+              <div
+                style={{
+                  background: "lightpink"
+                }}
+              >
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                    pokemon.id
+                  }.png`}
+                />
+              </div>
+              <p
+                style={{
+                  textAlign: "center",
+                  marginTop: 0,
+                  background: "lightgrey"
+                }}
+              >
+                {pokemon.name}
+              </p>
             </div>
           ))}
         </div>
