@@ -89,6 +89,7 @@ class App extends Component {
                 style={{
                   textAlign: "center",
                   marginTop: 0,
+                  marginBottom: 0,
                   background: "lightblue "
                 }}
               >
